@@ -52,7 +52,7 @@ if user_input := st.chat_input("당신의 주장이나 생각을 입력하세요
                 
                 # 모델 호출 (system_instruction과 대화 기록을 함께 전달)
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=contents,
                     config=genai.types.GenerateContentConfig(
                         system_instruction=system_instruction,
