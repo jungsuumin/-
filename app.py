@@ -20,7 +20,7 @@ if "chat" not in st.session_state:
     4. 말투는 지적이고 냉소적인 토론 고수처럼 유지하세요.
     """
     st.session_state.chat = client.chats.create(
-        model="gemini-3.6-flash",
+        model="gemini-2.5-flash",
         config=genai.types.GenerateContentConfig(
             system_instruction=system_instruction,
             temperature=0.7,
