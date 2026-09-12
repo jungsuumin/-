@@ -4,7 +4,7 @@ from google import genai
 st.set_page_config(page_title="인지 편향 토론 봇", page_icon="🧠")
 
 st.title("🧠 인지 편향 토론 봇")
-st.markdown("당신의 생각을 말해보세요. 철저한 논리와 팩폭으로 반박해 드립니다. 2번 반박하면 어떤 편향인지 진단해 줍니다!")
+st.markdown("당신의 생각을 말해보세요. 철저한 논리와 팩폭으로 반박해 드립니다.당신이 어떤 편향을 가지고 있을지 판단해드립니다")
 
 # API 키 설정
 API_KEY = "AQ.Ab8RN6KISR8snwJxBtVgZvqo3jYlWdfbDLWwaLzk0cPcULJ3mA"
