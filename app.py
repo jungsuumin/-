@@ -4,12 +4,11 @@ from google import genai
 st.set_page_config(page_title="인지 편향 토론 봇", page_icon="🧠")
 
 st.title("🧠 인지 편향 토론 봇")
-st.markdown("당신의 생각을 말해보세요. 철저한 논리와 팩폭으로 반박해 드립니다. 당신이 어떤 편향을 가지고 있을지 확인해보세요")
+st.markdown("당신의 생각을 말해보세요. 철저한 논리와 팩폭으로 반박해 드립니다. 당신이 어떤 편향을 가지고 있을지 확인해보세요!")
 
 # API 키 설정
 API_KEY = "AQ.Ab8RN6KISR8snwJxBtVgZvqo3jYlWdfbDLWwaLzk0cPcULJ3mA"
 
-# 세션 상태 초기화
 if "chat" not in st.session_state:
     client = genai.Client(api_key=API_KEY)
     system_instruction = """
@@ -21,30 +20,24 @@ if "chat" not in st.session_state:
     4. 말투는 지적이고 냉소적인 토론 고수처럼 유지하세요.
     """
     st.session_state.chat = client.chats.create(
-        model="gemini-2.5-flash",
+        model="gemini-3.6-flash",
         config=genai.types.GenerateContentConfig(
             system_instruction=system_instruction,
             temperature=0.7,
         )
     )
-    # 첫 자동 인사를 없애고 봇의 첫인상 메시지를 기본 장착
-    st.session_state.messages = [
-        {"role": "assistant", "content": "토론을 시작해 봅시다. 당신의 평소 생각이나 주장을 하나 말씀해 보세요."}
-    ]
+    initial_response = st.session_state.chat.send_message("토론을 시작해 봅시다. 당신의 평소 생각이나 주장을 하나 말씀해 보세요.")
+    st.session_state.messages = [{"role": "assistant", "content": initial_response.text}]
 
-# 대화 기록 화면에 출력
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 사용자 입력 받기
 if user_input := st.chat_input("당신의 주장이나 생각을 입력하세요..."):
-    # 사용자 메시지 저장 및 화면 표시
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    # 봇의 응답 생성
     with st.chat_message("assistant"):
         with st.spinner("심리학자가 팩폭을 준비 중입니다..."):
             response = st.session_state.chat.send_message(user_input)
